@@ -7,6 +7,7 @@ const os = require('os')
 
 const section = ['\\section{', '\\subsection{', '\\subsubsection{']
 const extensions = {
+  '.sh': 'bash',
   '.cc': 'C++',
   '.cpp': 'C++',
   '.hpp': 'C++',
