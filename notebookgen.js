@@ -8,6 +8,7 @@ const os = require('os')
 const section = ['\\section{', '\\subsection{', '\\subsubsection{']
 const extensions = {
   '.sh': 'bash',
+  '.png': 'png',
   '.cc': 'C++',
   '.cpp': 'C++',
   '.hpp': 'C++',
@@ -31,7 +32,9 @@ function walk (_path, depth) {
       ans += '\n' + section[depth] + file + '}\n' + walk(f, depth + 1)
     } else if (path.extname(f) in extensions) {
       ans += '\n' + section[depth] + file.split('.')[0] + '}\n'
-      if (path.extname(f) !== '.tex') {
+      if (path.extname(f) === '.png') {
+        ans += '\\centering{\\includegraphics[width=8.0cm]{' + normalizeUnixStyle(path.resolve(f)) + '}}'
+      } else if (path.extname(f) !== '.tex') {
         ans += `\\begin{lstlisting}[language=${extensions[path.extname(f)]}]\n` + fs.readFileSync(f) + '\\end{lstlisting}\n'
       } else {
         ans += fs.readFileSync(f)
